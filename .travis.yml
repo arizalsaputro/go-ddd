@@ -1,0 +1,28 @@
+group: edge
+sudo: required
+
+language: go
+
+go:
+  - 1.9
+
+services:
+  - docker
+
+install:
+  - go get gopkg.in/mgo.v2
+  - go get github.com/arizalsaputro/go-ddd
+  - go get github.com/gin-gonic/gin
+  - go get github.com/dchest/uniuri
+  - go get github.com/appleboy/gin-jwt
+  - go get gopkg.in/go-playground/validator.v8
+  - go get golang.org/x/crypto/bcrypt
+  - go get github.com/dgrijalva/jwt-go
+
+script:
+  - make build
+
+after_success:
+  - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+  - make docker-build
+  - make docker-push
