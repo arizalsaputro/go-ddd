@@ -51,6 +51,7 @@ func mapToDomainUser(user UserRegister) (dUser domain.User) {
 	dUser.DeviceList = []domain.UserDevice{user.Device}
 	dUser.Name = user.Name
 	dUser.Email = domain.Data{Data:user.Email,Code:user.Code}
+	dUser.ProfilePictureUrl = "https://avatars0.githubusercontent.com/u/30322941"
 	dUser.Password = user.Password
 	dUser.UpdatedAt = time.Now().UTC()
 	dUser.CreatedAt = time.Now().UTC()

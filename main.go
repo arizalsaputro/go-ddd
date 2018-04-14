@@ -10,6 +10,8 @@ import (
 	"github.com/arizalsaputro/go-ddd/interface/repositories/mongo"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"github.com/gin-contrib/cors"
+	"time"
 )
 
 func init()  {
@@ -33,6 +35,14 @@ func main()  {
 	router := gin.New()
 	router.Use(gin.Recovery())
 	router.Use(gin.Logger())
+	router.Use(cors.New(cors.Config{
+		AllowOrigins:     []string{"*"},
+		AllowMethods:[]string{"GET", "POST", "PUT", "HEAD","DELETE","OPTIONS","PATCH"},
+		AllowHeaders:[]string{"Origin", "Content-Length", "Content-Type","Authorization","api-client","device-id","client-token"},
+		ExposeHeaders:    []string{"Content-Length"},
+		AllowCredentials: true,
+		MaxAge:           12 * time.Hour,
+	}))
 
 	type Empty struct {
 
@@ -59,6 +69,9 @@ func main()  {
 		})
 	}
 
+	router.NoRoute(func(c *gin.Context) {
+		c.JSON(404,Empty{})
+	})
 
 	router.Run(":3000")
 }

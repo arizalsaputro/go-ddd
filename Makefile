@@ -3,7 +3,7 @@ BINARY=api
 DOCKER_IMAGE_NAME=arizalsaputro/api
 
 build: ## Build the binary
-	CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o ${BINARY} .
+	CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -ldflags "-s" -o ${BINARY} .
 
 clean: ## Clean up build artifacts
 	go clean

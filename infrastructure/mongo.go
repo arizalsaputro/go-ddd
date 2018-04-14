@@ -19,7 +19,8 @@ func ConnectMongo() error {
 	/*
 	 * Create the connection
 	 */
-	log.Println("Connecting to mongo database...")
+	log.Print("Connecting to mongo database...")
+	log.Println(config.Conf.Db.Host)
 
 	// We need this object to establish a session to our MongoDB.
 	mongoDBDialInfo := &mgo.DialInfo{
